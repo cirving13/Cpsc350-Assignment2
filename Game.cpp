@@ -16,11 +16,15 @@ Game::~Game()
 }
 void Game::readFile(string input) //opens and reads a file, finding basic information about the file
 {
-
-  playRows = -3; //set at -3 because the file reader will calculate the size of the board on its own, at each \n it adds a play row and the first two rows of the file are the dimensions so this avoids it. Also the extra line at the end of the file will error everything
   ifstream inFile;
   inFile.open(input);
   char c;
+  inFile >> c;
+  playRows = (int) c - 48;
+  inFile >> c;
+  playColumns = (int) c - 48;
+  cout << playRows << endl;
+  cout << playColumns << endl;
   if (!inFile)
   {
     cout << "Unable to open file " + input << endl;
@@ -33,15 +37,12 @@ void Game::readFile(string input) //opens and reads a file, finding basic inform
     if(c=='X' || c=='-')
     {
       cout << c;
-      ++charCount;
     }
     if(c == '\n')
     {
       cout << c;
-      ++playRows;
     }
   }
-  playColumns = charCount/playRows;
   cout << playRows << endl;
   cout << playColumns << endl;
   
