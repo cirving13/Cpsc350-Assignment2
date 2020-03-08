@@ -39,8 +39,23 @@ void Game::readFile(string input) //opens and reads a file, finding basic inform
       ++playRows;
     }
   }
-  playColumns = charCount/playRows; 
+  playColumns = charCount/playRows;
   cout << playRows << endl;
   cout << playColumns << endl;
   inFile.close();
+}
+int Game::getRows(){   // accessors and modifiers for the private variables
+  return playRows;
+}
+void Game::setRows(int row){
+  playRows = row;
+}
+int Game::getColumns(){
+  return playColumns;
+}
+void Game::setColumns(int columns){
+  playColumns = columns;
+}
+bool isSameGen(char** array1, char** array2){
+
 }
