@@ -12,20 +12,18 @@ int main(int argc, char** argv)
 {
 
   Game *g = new Game();
-  char currentGent[10][10]; //current generation of cells
-  char nextGen[10][10];     //next generation of cells
-  char decision;
+  int decision;
   string fileInput;
   char mode;
   cout << "welcome to the game of life!" << endl;
-  cout << "if you would like to provide a file for the game, press y. if not, press n:" << endl; //asks the user if they would like to provide a file or not
+  cout << "if you would like to provide a file for the game, press 1. if not, press 0:" << endl; //asks the user if they would like to provide a file or not
   cin >> decision;
-  if(decision == 'y'||'Y'){ //if the user decides to provide a file
+  if(decision == 1){ //if the user decides to provide a file
     cout << "enter filename" << endl;
     cin >> fileInput;
     g->readFile(fileInput);
   }
-  else if(decision == 'n'||'N'){ //if the user decides not to provide a file
+  else if(decision == 0){ //if the user decides not to provide a file
     int r;
     int c;
     cout << "file not provided" << endl;                        //this loop asks the user for the number of rows and columns for the board

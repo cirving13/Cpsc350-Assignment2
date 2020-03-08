@@ -16,6 +16,7 @@ Game::~Game()
 }
 void Game::readFile(string input) //opens and reads a file, finding basic information about the file
 {
+
   ifstream inFile;
   inFile.open(input);
   char c;
@@ -23,29 +24,35 @@ void Game::readFile(string input) //opens and reads a file, finding basic inform
   playRows = (int) c - 48;
   inFile >> c;
   playColumns = (int) c - 48;
-  cout << playRows << endl;
-  cout << playColumns << endl;
   if (!inFile)
   {
     cout << "Unable to open file " + input << endl;
     exit(1);
   }
   int charCount = 0;
-  while (!inFile.eof())
-  {
+
+  char board[playRows][playColumns];
+  int i = 0;
+  int j = 0;
+  while (!inFile.eof()){
     inFile >> noskipws >> c;
-    if(c=='X' || c=='-')
-    {
+    if(c == 'X'){
       cout << c;
+      board[i][j]='X';
+      ++j;
     }
-    if(c == '\n')
-    {
+    else if(c == '-'){
       cout << c;
+      board[i][j]='-';
+      ++j;
+    }
+    else if(c == '\n'){
+      cout << c;
+      ++i;
+      j = 0;
     }
   }
-  cout << playRows << endl;
-  cout << playColumns << endl;
-  
+  cout << board[2][2] << endl;
   inFile.close();
 }
 int Game::getRows(){   // accessors and modifiers for the private variables
