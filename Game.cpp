@@ -3,10 +3,12 @@
 Game::Game()
 {
   char board[10][10];
+  char tempboard[10][10];
 }
 Game::Game(int rowInput, int columnInput)
 {
   char board[rowInput][columnInput];
+  char tempboard[rowInput][columnInput];
 }
 Game::~Game()
 {
@@ -42,6 +44,7 @@ void Game::readFile(string input) //opens and reads a file, finding basic inform
   playColumns = charCount/playRows;
   cout << playRows << endl;
   cout << playColumns << endl;
+  
   inFile.close();
 }
 int Game::getRows(){   // accessors and modifiers for the private variables

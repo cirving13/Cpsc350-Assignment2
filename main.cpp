@@ -39,13 +39,13 @@ int main(int argc, char** argv)
   cout << "what kind of boundary mode would you like to run in?" << endl;
   cout << "enter c for classic mode, d for donut mode, or m for mirror mode" << endl;
   cin >> mode;
-  if(mode == 'c' || 'C'){
-
+  if(mode == 'c' || 'C'){  //if the mode is classic
+    //classic mode implementations
   }
-  else if(mode == 'd' || 'D'){
-
+  else if(mode == 'd' || 'D'){  //if the mode is donut
+    //donut mode implementations
   }
-  else{
+  else{ //if the mode is mirror
 
   }
 
