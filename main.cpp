@@ -12,12 +12,15 @@ int main(int argc, char** argv)
 {
 
   Game *g = new Game();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1595a22f40cbd03b4a7611ae2670779c45878679
   int decision;
   string fileInput;
   char mode;
   cout << "welcome to the game of life!" << endl;
-  cout << "if you would like to provide a file for the game, press y. if not, press n:" << endl; //asks the user if they would like to provide a file or not
+  cout << "if you would like to provide a file for the game, press 1. if not, press 0:" << endl; //asks the user if they would like to provide a file or not
   cin >> decision;
   if(decision == 1){ //if the user decides to provide a file
     cout << "enter filename" << endl;

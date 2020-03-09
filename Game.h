@@ -15,6 +15,8 @@ class Game
     int playRows;
     int playColumns;
     char **space;
+    char board[10][10];
+    char tempboard[10][10];
 
   public:
     Game();
@@ -30,5 +32,8 @@ class Game
     void setColumns(int column);
     void boardCopy(); // a function that copies the original array to the next generation array
     // isAlive();
+<<<<<<< HEAD
     void randBoard(float val);
+=======
+>>>>>>> 1595a22f40cbd03b4a7611ae2670779c45878679
   };
