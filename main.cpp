@@ -12,10 +12,6 @@ int main(int argc, char** argv)
 {
 
   Game *g = new Game();
-<<<<<<< HEAD
-
-=======
->>>>>>> 1595a22f40cbd03b4a7611ae2670779c45878679
   int decision;
   string fileInput;
   char mode;

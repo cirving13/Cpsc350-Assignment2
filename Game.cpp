@@ -52,13 +52,7 @@ void Game::readFile(string input) //opens and reads a file, finding basic inform
       j = 0;
     }
   }
-<<<<<<< HEAD
-  cout << playRows << endl;
-  cout << playColumns << endl;
-
-=======
   cout << board[2][2] << endl;
->>>>>>> 1595a22f40cbd03b4a7611ae2670779c45878679
   inFile.close();
 }
 int Game::getRows(){   // accessors and modifiers for the private variables
