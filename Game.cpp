@@ -3,12 +3,12 @@
 Game::Game()
 {
   char board[10][10];
-  char tempboard[10][10];
+  char tempBoard[10][10];
 }
 Game::Game(int rowInput, int columnInput)
 {
   char board[rowInput][columnInput];
-  char tempboard[rowInput][columnInput];
+  char tempBoard[rowInput][columnInput];
 }
 Game::~Game()
 {
@@ -45,7 +45,7 @@ void Game::readFile(string input) //opens and reads a file, finding basic inform
   }
   cout << playRows << endl;
   cout << playColumns << endl;
-  
+
   inFile.close();
 }
 int Game::getRows(){   // accessors and modifiers for the private variables
@@ -60,6 +60,15 @@ int Game::getColumns(){
 void Game::setColumns(int columns){
   playColumns = columns;
 }
-bool isSameGen(char** array1, char** array2){
-
+void Game::randBoard(float val)
+{
+  char board[playRows][playColumns];
+  int randNum = playColumns*playRows*val;
+  for(int i = 0; i < randNum; ++i)
+  {
+    int v1 = rand() % playRows;
+    int v2 = rand() % playColumns;
+    board[v1][v2] = 'X';
+    cout << "Kachigga my" << endl;
+  }
 }

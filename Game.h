@@ -28,8 +28,7 @@ class Game
     void setRows(int row);
     int getColumns();
     void setColumns(int column);
-    bool isSameGen(char** array1, char** array2); //a boolean function that compares the current generation with its next
-    void consoleOut(); //a function that prints out the results to the console
     void boardCopy(); // a function that copies the original array to the next generation array
-    // isAlive(); 
+    // isAlive();
+    void randBoard(float val);
   };
