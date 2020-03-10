@@ -1,29 +1,35 @@
-#include "board.h"
+#include "Board.h"
 
-Board::board()
+Board::Board()
 {
-  board = new char[10][10];
+
 }
-Board::board(int rows, int colums)
+Board::~Board()
 {
-  board = new char[rows][colums];
-}
-Board::~board()
-{
-  delete board;
+  delete boardP;
 }
 
 void Board::createBoard(int rows, int columns)
 {
-  char** board = new char*[rows];
+  char** b = new char*[rows];
   for(int i = 0; i < rows; ++i)
-    board[i] = new char[colums];
+    b[i] = new char[columns];
 }
 void Board::push(char val, int rowLocation, int columnLocation)
 {
-  board[rowLocation][columnLocation] = val;
+  boardP[rowLocation][columnLocation] = val;
 }
 char Board::peek(int rowLocation, int columnLocation)
 {
-  return board[rowLocation][columnLocation];
+  return boardP[rowLocation][columnLocation];
+}
+string Board::returnBoard(){
+  string output = "";
+  for(int i=0;i<rows;i++){
+    for(int j=0;j<columns;j++){
+      output = output + boardP[i][j];
+    }
+    output+="\n";
+  }
+  return output;
 }

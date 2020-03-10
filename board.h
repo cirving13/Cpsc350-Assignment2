@@ -2,19 +2,21 @@
 
 using namespace std;
 
-class board
+class Board
 {
 private:
   int rows;
-  int colums;
-  char** board;
+  int columns;
 
 public:
-  board();
-  board(int rows, int colums);
-  ~board();
+  Board();
+  ~Board();
+
+  char** boardP;
+
 
   void createBoard(int rows, int column);
   void push(char val, int rowLocation, int columnLocation);
   char peek(int rowLocation, int columnLocation);
+  string returnBoard();
 };
