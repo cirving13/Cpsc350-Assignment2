@@ -2,10 +2,11 @@
 
 int main(int argc, char** argv)
 {
+  // Game* g = new Game();
+  Board* b = new Board();
+  b->randBoard(5,5,0.5);
+  cout << b->returnBoard() << endl;
 
-  // Game *g = new Game();
-  Board *b = new Board();
-  b->readFile("sample.txt");
   // int decision;
   // int k;
   // string fileInput;
@@ -49,8 +50,8 @@ int main(int argc, char** argv)
   //   exit(1);
   // }
 
+  //
   // delete g;
-  delete b;
-  return 0;
+  // return 0;
 
 }

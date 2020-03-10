@@ -24,5 +24,7 @@ public:
   char peek(int rowLocation, int columnLocation);
   string returnBoard();
   void readFile(string fileIn); //reads file and creates board of given specifics
+  void randBoard(int r, int c, float val);
+
 
 };
