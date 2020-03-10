@@ -13,6 +13,7 @@ int main(int argc, char** argv)
 
   Game *g = new Game();
   int decision;
+  int k;
   string fileInput;
   char mode;
   cout << "welcome to the game of life!" << endl;
