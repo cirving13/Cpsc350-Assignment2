@@ -1,12 +1,4 @@
 #include "Game.h"
-// do you want to use a file??
-// gimme that file
-// how big is your Game
-// rows?
-// colums?
-// what game mode do you want to play? (classic, donut or mirror)
-//
-// char myArray = new Array[rows][colums];
 
 int main(int argc, char** argv)
 {
@@ -38,7 +30,6 @@ int main(int argc, char** argv)
     cin >> val;
     g->setRows(r);     //getters and setters are used to store the variables
     g->setColumns(c);
-    g->randBoard(val);
   }
   cout << "what kind of boundary mode would you like to run in?" << endl;
   cout << "enter c for classic mode, d for donut mode, or m for mirror mode" << endl;

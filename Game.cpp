@@ -24,7 +24,7 @@ void Game::readFile(string input) //opens and reads a file, finding basic inform
   playRows = (int) c - 48;
   inFile >> c;
   playColumns = (int) c - 48;
-  Board *b = new Board(playRows,playColumns);
+  Board *b = new Board();
   b->createBoard(playRows,playColumns);
   if (!inFile)
   {
@@ -69,92 +69,30 @@ int Game::getColumns(){
 void Game::setColumns(int columns){
   playColumns = columns;
 }
-void Game::randBoard(float val)
-{
-  for(int i = 0; i < playRows; ++i)
-  {
-    for(int j = 0; j < playColumns; ++j)
-    {
-      board[i][j] = '-';
-    }
-  }
-  char board[playRows][playColumns];
-  int randNum = playColumns*playRows*val;
-  for(int i = 0; i < randNum; ++i)
-  {
-    int v1 = rand() % playRows;
-    int v2 = rand() % playColumns;
-    board[v1][v2] = 'X';
-    cout << board[v1][v2];
-  }
-  writeConsoleEnter();
-}
-void Game::writeFile(string input)
-{
-  //insert live or die method thing
-  ofstream outFile;
-  outFile.open(input);
-  int i = 0;
-  while(true)
-  {
-    cout << i << endl;
-    ++i;
-    for(int i = 0; i < playRows; ++i)
-    {
-      for(int j = 0; j < playColumns; ++j)
-      {
-        outFile << board[i][j];
-      }
-      outFile << endl;
-    }
-    if(i == 10)
-      break;
-  }
+// void Game::randBoard(float val)
+// {
+//   for(int i = 0; i < playRows; ++i)
+//   {
+//     for(int j = 0; j < playColumns; ++j)
+//     {
+//       board[i][j] = '-';
+//     }
+//   }
+//   char board[playRows][playColumns];
+//   int randNum = playColumns*playRows*val;
+//   for(int i = 0; i < randNum; ++i)
+//   {
+//     int v1 = rand() % playRows;
+//     int v2 = rand() % playColumns;
+//     board[v1][v2] = 'X';
+//     cout << board[v1][v2];
+//   }
+// }
 
-}
-void Game::writeConsole()
-{
-  //insert live or die method thing
-  int i = 0;
-  while(true)
-  {
-    cout << i << endl;
-    ++i;
-    for(int i = 0; i < playRows; ++i)
-    {
-      for(int j = 0; j < playColumns; ++j)
-      {
-        cout << board[i][j];
-      }
-      cout << endl;
-    }
-    if(i == 10)
-      break;
-  }
-}
-void Game::writeConsoleEnter()
-{
-  int num = 0;
-  while(true)
-  {
-    cout << num << endl;
-    ++num;
-    for(int i = 0; i < playRows; ++i)
-    {
-      for(int j = 0; j < playColumns; ++j)
-      {
-        cout << board[i][j];
-      }
-      cout << endl;
-    }
-    cout << "Press enter to continue" << endl;
-    cin.ignore();
-    if(num == 10)
-      break;
-  }
-}
-void Game::nextGen(char **arr,int x,int y){
-  Board *b = new Board(x,y);
+Board* Game::nextGen(Board *a,int x,int y){
+  char** arr = a->boardP;
+  Board *b = new Board();
+  b->createBoard(x,y);
   for(int i = 0; i< x; ++i ){
     for(int j = 0; j < y; ++j){
       int neighbors = 0;
@@ -196,4 +134,8 @@ void Game::nextGen(char **arr,int x,int y){
       }
     }
   }
+  // arr = b->boardP;
+  a = b;
+  delete b;
+  return a;
 }
