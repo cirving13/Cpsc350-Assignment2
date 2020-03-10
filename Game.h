@@ -12,7 +12,7 @@ class Game
   private:
     int playRows;
     int playColumns;
-    char **space;
+
     char board[10][10];
     char tempboard[10][10];
 
@@ -21,9 +21,9 @@ class Game
     Game(int rowInput, int columnInput);
     ~Game();
     void readFile(string fileIn); //reads file and creates board of given specifics
-    //void writeFile(string fileOut); //outputs the game to a file, given filename
-    //void writeConsoleEnter(); //writes to console but doesnt continue game until user presses enter
-    //void writeConsole(); //writes to console with small pauses
+    void writeFile(string fileOut); //outputs the game to a file, given filename
+    void writeConsoleEnter(); //writes to console but doesnt continue game until user presses enter
+    void writeConsole(); //writes to console with small pauses
     int getRows(); //accessors and modifiers for the private variables in the class
     void setRows(int row);
     int getColumns();
