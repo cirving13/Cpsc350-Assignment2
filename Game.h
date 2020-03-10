@@ -10,8 +10,6 @@ using namespace std;
 class Game
   {
   private:
-    int rows;
-    int columns;
     int playRows;
     int playColumns;
     char **space;
@@ -33,4 +31,5 @@ class Game
     void boardCopy(); // a function that copies the original array to the next generation array
     // isAlive();
     void randBoard(float val);
+    void nextGen(char **arr,int x,int y);
   };
