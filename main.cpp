@@ -4,6 +4,7 @@ int main(int argc, char** argv)
 {
 
   Game *g = new Game();
+  Board *b = new Board();
   int decision;
   int k;
   string fileInput;
@@ -14,7 +15,7 @@ int main(int argc, char** argv)
   if(decision == 1){ //if the user decides to provide a file
     cout << "enter filename" << endl;
     cin >> fileInput;
-    g->readFile(fileInput);
+    b->readFile(fileInput);
   }
   else if(decision == 0){ //if the user decides not to provide a file
     int r;

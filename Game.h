@@ -18,7 +18,6 @@ class Game
     Game();
     Game(int rowInput, int columnInput);
     ~Game();
-    void readFile(string fileIn); //reads file and creates board of given specifics
 
     int getRows(); //accessors and modifiers for the private variables in the class
     void setRows(int row);
