@@ -17,4 +17,4 @@ public:
   void createBoard(int rows, int column);
   void push(char val, int rowLocation, int columnLocation);
   char peek(int rowLocation, int columnLocation);
-}
+};

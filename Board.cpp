@@ -17,7 +17,7 @@ void Board::createBoard(int rows, int columns)
 {
   char** board = new char*[rows];
   for(int i = 0; i < rows; ++i)
-    board[i] = new int[colums];
+    board[i] = new char[colums];
 }
 void Board::push(char val, int rowLocation, int columnLocation)
 {

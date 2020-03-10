@@ -31,6 +31,7 @@ void Game::readFile(string input) //opens and reads a file, finding basic inform
     cout << "Unable to open file " + input << endl;
     exit(1);
   }
+
   int charCount = 0;
 
   char board[playRows][playColumns];
@@ -114,17 +115,19 @@ void Game::writeFile(string input)
 }
 void Game::writeConsole()
 {
-  //insert live or die method thing
-  int i = 0;
+
+  //insert live or die method thing(nextGen)
+  Board *x = new Board(playRows, PlayerColumns);
   while(true)
   {
+    x = nextGen(board, playRows, PlayerColumns);
     cout << i << endl;
     ++i;
     for(int i = 0; i < playRows; ++i)
     {
       for(int j = 0; j < playColumns; ++j)
       {
-        cout << board[i][j];
+        cout << x[i][j];
       }
       cout << endl;
     }
@@ -135,10 +138,12 @@ void Game::writeConsole()
 void Game::writeConsoleEnter()
 {
   int num = 0;
+  Board *x = new Board(playRows, PlayerColumns);
   while(true)
   {
     cout << num << endl;
     ++num;
+    x = nextGen(board, playRows, PlayerColumns);
     for(int i = 0; i < playRows; ++i)
     {
       for(int j = 0; j < playColumns; ++j)
@@ -153,8 +158,10 @@ void Game::writeConsoleEnter()
       break;
   }
 }
-void Game::nextGen(char **arr,int x,int y){
+Board Game::nextGen(Board a,int x,int y){
   Board *b = new Board(x,y);
+  char** arr = a.boardP;
+  b->createBoard(x, y);
   for(int i = 0; i< x; ++i ){
     for(int j = 0; j < y; ++j){
       int neighbors = 0;
@@ -196,4 +203,7 @@ void Game::nextGen(char **arr,int x,int y){
       }
     }
   }
+  arr - b->boardP;
+  delete b;
+  return a;
 }
