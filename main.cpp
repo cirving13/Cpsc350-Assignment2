@@ -3,10 +3,13 @@
 int main(int argc, char** argv)
 {
 
-  // Game* g = new Game();
+  Game* g = new Game();
   Board* b = new Board();
-  b->randBoard(5,5,0.5);
-  cout << b->returnBoard() << endl;
+  b->randBoard(5,5,.6);
+  int x = b->getRows();
+  int y = b->getColumns();
+  Board* c = g->nextGen(b,x,y);
+  cout << c->returnBoard();
   // int decision;
   // int k;
   // string fileInput;
@@ -50,7 +53,9 @@ int main(int argc, char** argv)
   //   exit(1);
   // }
   //
-  // delete g;
+  delete g;
+  delete b;
+  delete c;
   // return 0;
 
 }

@@ -42,6 +42,19 @@ string Board::returnBoard()
   }
   return output;
 }
+string Board::outRandBoard(int r, int c)
+{
+  string output;
+  for(int i = 0;i < r;i++)
+  {
+    for(int j = 0;j < c;j++)
+    {
+      output = output + boardP[i][j];
+    }
+    output+="\n";
+  }
+  return output;
+}
 void Board::readFile(string input) //opens and reads a file, finding basic information about the file
 {
   ifstream inFile;
@@ -81,6 +94,8 @@ void Board::readFile(string input) //opens and reads a file, finding basic infor
 }
 void Board::randBoard(int r, int c, float val)
 {
+  setColumns(c);
+  setRows(r);
   createBoard(r,c);
   for(int i = 0; i < r; ++i)
   {
@@ -96,4 +111,19 @@ void Board::randBoard(int r, int c, float val)
     int v2 = rand() % c;
     boardP[v1][v2] = 'X';
   }
+  cout << outRandBoard(r,c);
+}
+int Board::getColumns(){
+  return columns;
+}
+int Board::getRows(){   // accessors and modifiers for the private variables
+  return rows;
+}
+void Board::setRows(int r)
+{
+  rows = r;
+}
+void Board::setColumns(int c)
+{
+  columns = c;
 }
