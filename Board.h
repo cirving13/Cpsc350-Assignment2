@@ -12,6 +12,7 @@ class Board
 private:
   int rows;
   int columns;
+  int equalCount = 0;
 
 public:
   Board();
@@ -22,6 +23,7 @@ public:
 
   void createBoard(int rows, int column);
   string returnBoard();
+  bool isStable();
   void readFile(string fileIn); //reads file and creates board of given specifics
   void randBoard(int r, int c, float val);
   string outRandBoard(int r, int c);

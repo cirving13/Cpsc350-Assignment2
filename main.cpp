@@ -4,10 +4,9 @@ int main(int argc, char** argv)
 {
   string fileName = "sample.txt";
   Board* b = new Board();
-  b->
-  b->randBoard(20,20,.1);
-  for(int i = 0; i < 10; i++){
-    b->Mirror();
+  b->randBoard(10,10,.1);
+  while(b->isStable() == false){
+    b->classic();
   }
   // int decision;
   // int k;

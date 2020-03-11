@@ -185,6 +185,34 @@ void Board::classic(){ //method to loop through a board and output the new board
   }
   cout << endl;
 }
+
+bool Board::isStable(){ //checks if program is stable
+  int cellequalCount = 0;
+  for(int i = 0; i < rows; ++i){
+    for(int j = 0; j < columns; ++j){
+      if(currentp[i][j] == nextp[i][j]){
+        cellequalCount++;
+      }
+    }
+  }
+  if(cellequalCount = (rows * columns)){
+    if(equalCount > 4){
+      for(int i = 0; i < rows; ++i){
+        for(int j = 0; j < columns; ++j){
+          cout << nextp[i][j];
+        }
+        cout << endl;
+      }
+      cout << endl;
+      cout << "the program is stable" << endl;
+
+      return true;
+    }
+    else{
+      equalCount++;
+    }
+  }
+}
 int Board::cornerTL(int rows, int columns)
 {
   int neighbors = 0;
@@ -334,7 +362,6 @@ int Board::sideB(int rows, int columns)
   }
   return neighbors;
 }
-
 int Board::sideL(int rows, int columns)
 {
   int neighbors = 0;
@@ -672,6 +699,7 @@ void Board::Mirror(){
   }
   cout << endl;
 }
+
 
 
 // void ClassicMode::NewGen()
