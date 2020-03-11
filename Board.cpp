@@ -9,7 +9,7 @@ Board::~Board()
   delete boardP;
 }
 
-void Board::createBoard(int rows, int columns)
+void Board::createBoard(int rows, int columns) //creates board
 {
   boardP = new char*[rows];
   for(int i = 0; i < rows; ++i)
@@ -19,9 +19,10 @@ void Board::createBoard(int rows, int columns)
     {
       boardP[i][j]='-';
     }
+
   }
 }
-void Board::push(char val, int rowLocation, int columnLocation)
+void Board::push(char val, int rowLocation, int columnLocation) //writes value to board using val at the given location
 {
   boardP[rowLocation][columnLocation] = val;
 }
@@ -29,7 +30,7 @@ char Board::peek(int rowLocation, int columnLocation)
 {
   return boardP[rowLocation][columnLocation];
 }
-string Board::returnBoard()
+string Board::returnBoard() //outputs board
 {
   string output;
   for(int i = 0;i < rows;i++)
@@ -42,7 +43,7 @@ string Board::returnBoard()
   }
   return output;
 }
-string Board::outRandBoard(int r, int c)
+string Board::outRandBoard(int r, int c) //outputs rand board, ignore
 {
   string output;
   for(int i = 0;i < r;i++)
@@ -92,7 +93,7 @@ void Board::readFile(string input) //opens and reads a file, finding basic infor
   }
   inFile.close();
 }
-void Board::randBoard(int r, int c, float val)
+void Board::randBoard(int r, int c, float val) //creates random board
 {
   setColumns(c);
   setRows(r);

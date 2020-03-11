@@ -2,7 +2,6 @@
 
 int main(int argc, char** argv)
 {
-
   Game* g = new Game();
   Board* b = new Board();
   b->randBoard(5,5,.6);
@@ -52,6 +51,7 @@ int main(int argc, char** argv)
   // else{
   //   exit(1);
   // }
+
   //
   delete g;
   delete b;

@@ -20,4 +20,5 @@ class Game
     ~Game();
     
     Board* nextGen(Board *a,int x,int y);
+    Board* nextGenDon(Board *a,int x,int y);
   };
