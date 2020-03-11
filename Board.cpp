@@ -95,20 +95,20 @@ void Board::randBoard(int r, int c, float val) //creates random board
   cout << returnBoard();
   cout << endl;
 }
-// int Board::getColumns(){
-//   return columns;
-// }
-// int Board::getRows(){   // accessors and modifiers for the private variables
-//   return rows;
-// }
-// void Board::setRows(int r)
-// {
-//   rows = r;
-// }
-// void Board::setColumns(int c)
-// {
-//   columns = c;
-// }
+int Board::getColumns(){
+  return columns;
+}
+int Board::getRows(){   // accessors and modifiers for the private variables
+  return rows;
+}
+void Board::setRows(int r)
+{
+  rows = r;
+}
+void Board::setColumns(int c)
+{
+  columns = c;
+}
 void Board::logic(int neighbors, int rows, int columns) //method that determines life or death
 {
   if (neighbors < 2)
@@ -188,15 +188,15 @@ void Board::classic(){ //method to loop through a board and output the new board
 
 bool Board::isStable(){ //checks if program is stable
   int cellequalCount = 0;
-  for(int i = 0; i < rows; ++i){
+  for(int i = 0; i < rows; i++){
     for(int j = 0; j < columns; ++j){
       if(currentp[i][j] == nextp[i][j]){
         cellequalCount++;
       }
     }
   }
-  if(cellequalCount = (rows * columns)){
-    if(equalCount > 4){
+  if(cellequalCount == (rows * columns)){
+    if(equalCount > 5){
       for(int i = 0; i < rows; ++i){
         for(int j = 0; j < columns; ++j){
           cout << nextp[i][j];
@@ -211,6 +211,9 @@ bool Board::isStable(){ //checks if program is stable
     else{
       equalCount++;
     }
+  }
+  else{
+    equalCount++
   }
 }
 int Board::cornerTL(int rows, int columns)

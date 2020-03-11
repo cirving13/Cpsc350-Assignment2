@@ -2,12 +2,14 @@
 
 int main(int argc, char** argv)
 {
-  string fileName = "sample.txt";
   Board* b = new Board();
-  b->randBoard(10,10,.1);
-  while(b->isStable() == false){
+  b->randBoard(10,10,0.4);
+  while(b->isStable() != true){
     b->classic();
   }
+
+
+  // Board* b = new Board();
   // int decision;
   // int k;
   // string fileInput;
@@ -32,27 +34,35 @@ int main(int argc, char** argv)
   //   cin >> c;
   //   cout << "What density would you like the world to be? (value between 0 and 1) " << endl;
   //   cin >> val;
-  //   g->setRows(r);     //getters and setters are used to store the variables
-  //   g->setColumns(c);
+  //   b->setRows(r);     //getters and setters are used to store the variables
+  //   b->setColumns(c);
+  //   b->randBoard(r, c, val);
   // }
   // cout << "what kind of boundary mode would you like to run in?" << endl;
   // cout << "enter c for classic mode, d for donut mode, or m for mirror mode" << endl;
   // cin >> mode;
   // if(mode == 'c' || 'C'){  //if the mode is classic
-  //   //classic mode implementations
+  //   int add;
+  //   cout << "Classic mode has been selected" << endl;
+  //   cout << endl;
+  //   cout << "press one of the numbers to continue"
+  //   cout << "1. Add a brief pause between generations" << endl;
+  //   cout << "2. Press enter to display the next generation" << endl;
+  //   cout << "3. Output the results to a file." << endl;
+  //   cin >> add;
   // }
   // else if(mode == 'd' || 'D'){  //if the mode is donut
-  //   //donut mode implementations
+  //   cout << "Donut mode has been selected" << endl;
   // }
   // else if (mode == 'm' || 'M'){ //if the mode is mirror
-  //
+  //   cout << "Mirror mode has been selected" << endl;
   // }
   // else{
   //   exit(1);
   // }
-
   //
-  delete b;
-  // return 0;
+  //
+  // delete b;
+  return 0;
 
 }
