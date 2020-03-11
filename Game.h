@@ -23,6 +23,5 @@ class Game
     void setRows(int row);
     int getColumns();
     void setColumns(int column);
-    void randBoard(float val);
     Board* nextGen(Board *a,int x,int y);
   };

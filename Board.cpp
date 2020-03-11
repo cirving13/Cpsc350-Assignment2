@@ -12,9 +12,11 @@ Board::~Board()
 void Board::createBoard(int rows, int columns)
 {
   boardP = new char*[rows];
-  for(int i = 0; i < rows; ++i){
+  for(int i = 0; i < rows; ++i)
+  {
     boardP[i] = new char[columns];
-    for(int j = 0; j < columns; ++j){
+    for(int j = 0; j < columns; ++j)
+    {
       boardP[i][j]='-';
     }
   }
@@ -27,10 +29,13 @@ char Board::peek(int rowLocation, int columnLocation)
 {
   return boardP[rowLocation][columnLocation];
 }
-string Board::returnBoard(){
+string Board::returnBoard()
+{
   string output;
-  for(int i=0;i<rows;i++){
-    for(int j=0;j<columns;j++){
+  for(int i = 0;i < rows;i++)
+  {
+    for(int j = 0;j < columns;j++)
+    {
       output = output + boardP[i][j];
     }
     output+="\n";
@@ -42,47 +47,53 @@ void Board::readFile(string input) //opens and reads a file, finding basic infor
   ifstream inFile;
   inFile.open(input);
   char c;
-  inFile >> c;
-  rows = (int) c - 48;
-  inFile >> c;
-  columns = (int) c - 48;
+  string line;
+  getline(inFile, line);
+  rows = stoi(line);
+  getline(inFile, line);
+  columns = stoi(line);
+  cout << rows << endl;
+  cout << columns << endl;
+  createBoard(rows,columns);
   if (!inFile)
   {
     cout << "Unable to open file " + input << endl;
     exit(1);
   }
-  int charCount = 0;
   int i = 0;
   int j = 0;
-  // string line;
 
-  boardP = new char*[rows];
-  for (int i = 0; i < rows+1; ++i)  //This method gives me a null pointer method and prints a bunch of shit
+  while (!inFile.eof())
   {
-    boardP[i] = new char[columns];
-    getline(inFile,line);
-    j = 0;
-    for (char c: line)
+    inFile >> noskipws >> c;
+    if(c == 'X' || c == '-')
     {
-      cout << c;
-      boardP[i][j]=c;
+      boardP[i][j] = c;
       ++j;
     }
-    cout << endl;
+    else if(c == '\n')
+    {
+      ++i;
+      j = 0;
+    }
   }
-  // while (!inFile.eof()){ //this method gives me a segmentation fault and makes me want to fucking die
-  //   inFile >> noskipws >> c;
-  //   if(c == 'X' || c == '-'){
-  //     // cout << c;
-  //     boardP[i][j]=c;
-  //     ++j;
-  //   }
-  //   else if(c == '\n'){
-  //     boardP[i] = new char[columns];
-  //     cout << endl;
-  //     ++i;
-  //     j = 0;
-  //   }
-  // }
   inFile.close();
+}
+void Board::randBoard(int r, int c, float val)
+{
+  createBoard(r,c);
+  for(int i = 0; i < r; ++i)
+  {
+    for(int j = 0; j < c; ++j)
+    {
+      boardP[i][j] = '-';
+    }
+  }
+  int randNum = c*r*val;
+  for(int i = 0; i < randNum; ++i)
+  {
+    int v1 = rand() % r;
+    int v2 = rand() % c;
+    boardP[v1][v2] = 'X';
+  }
 }

@@ -27,25 +27,7 @@ int Game::getColumns(){
 void Game::setColumns(int columns){
   playColumns = columns;
 }
-// void Game::randBoard(float val)
-// {
-//   for(int i = 0; i < playRows; ++i)
-//   {
-//     for(int j = 0; j < playColumns; ++j)
-//     {
-//       board[i][j] = '-';
-//     }
-//   }
-//   char board[playRows][playColumns];
-//   int randNum = playColumns*playRows*val;
-//   for(int i = 0; i < randNum; ++i)
-//   {
-//     int v1 = rand() % playRows;
-//     int v2 = rand() % playColumns;
-//     board[v1][v2] = 'X';
-//     cout << board[v1][v2];
-//   }
-// }
+
 
 Board* Game::nextGen(Board *a,int x,int y){
   char** arr = a->boardP;
