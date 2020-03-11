@@ -31,6 +31,7 @@ public:
   // void setColumns(int c);
 
   void classic();
+  void Mirror();
   int cornerTL(int x,int y);
   int cornerTR(int x,int y);
   int cornerBL(int x,int y);

@@ -93,6 +93,7 @@ void Board::randBoard(int r, int c, float val) //creates random board
     currentp[v1][v2] = 'X';
   }
   cout << returnBoard();
+  cout << endl;
 }
 // int Board::getColumns(){
 //   return columns;
@@ -182,6 +183,7 @@ void Board::classic(){ //method to loop through a board and output the new board
     }
     cout << endl;
   }
+  cout << endl;
 }
 int Board::cornerTL(int rows, int columns)
 {
@@ -395,6 +397,280 @@ int Board::middle(int rows, int columns)
     neighbors++;
   }
   return neighbors;
+}
+
+void Board::Mirror(){
+  int neighbors;
+
+  for (int i = 0; i < rows; i++)
+  {
+    for (int j = 0; j < columns; j++)
+    {
+      if (i == 0 && j == 0)
+      {
+        if(currentp[i][j] == 'X'){
+          if(currentp[i+1][j] == 'X' && currentp[i][j+1] == 'X'){
+            neighbors = cornerTL(i,j) + 5; //corner top left
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i+1][j] == 'X' || currentp[i][j+1] == 'X'){
+            neighbors = cornerTL(i,j) + 4; //corner top left
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = cornerTL(i,j) + 3; //corner top left
+            logic(neighbors, i, j);
+          }
+        }
+        else if(currentp[i][j] == '-'){
+          if(currentp[i+1][j] == 'X' && currentp[i][j+1] == 'X'){
+            neighbors = cornerTL(i,j) + 2; //corner top left
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i+1][j] == 'X' || currentp[i][j+1] == 'X'){
+            neighbors = cornerTL(i,j) + 1; //corner top left
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = cornerTL(i,j); //corner top left
+            logic(neighbors, i, j);
+          }
+        }
+      }
+      else if (i == 0 && j == columns - 1)//corner top Right
+      {
+        if(currentp[i][j] == 'X'){
+          if(currentp[i][j-1] == 'X' && currentp[i+1][j] == 'X'){
+            neighbors = cornerTR(i,j) + 5; //corner top right
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i][j-1] == 'X' || currentp[i+1][j] == 'X'){
+            neighbors = cornerTR(i,j) + 4; //corner top right
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = cornerTR(i,j) + 3; //corner top right
+            logic(neighbors, i, j);
+          }
+        }
+        else if(currentp[i][j] == '-'){
+          if(currentp[i][j-1] == 'X' && currentp[i+1][j] == 'X'){
+            neighbors = cornerTR(i,j) + 2; //corner top right
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i][j-1] == 'X' || currentp[i+1][j] == 'X'){
+            neighbors = cornerTR(i,j) + 1; //corner top right
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = cornerTR(i,j); //corner top right
+            logic(neighbors, i, j);
+          }
+        }
+      }
+      else if (i == rows - 1 && j == 0) //corner bottom left
+      {
+        if(currentp[i][j] == 'X'){
+          if(currentp[i-1][j] == 'X' && currentp[i][j+1] == 'X'){
+            neighbors = cornerBL(i,j) + 5;
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i-1][j] == 'X' || currentp[i][j+1] == 'X'){
+            neighbors = cornerBL(i,j) + 4;
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = cornerBL(i,j) + 3;
+            logic(neighbors, i, j);
+          }
+        }
+        else if(currentp[i][j] == '-'){
+          if(currentp[i-1][j] == 'X' && currentp[i][j+1] == 'X'){
+            neighbors = cornerBL(i,j) + 2;
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i-1][j] == 'X' || currentp[i][j+1] == 'X'){
+            neighbors = cornerBL(i,j) + 1;
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = cornerBL(i,j);
+            logic(neighbors, i, j);
+          }
+        }
+      }
+      else if (i == rows - 1 && j == columns - 1) //corner bottom Right
+      {
+        if(currentp[i][j] == 'X'){
+          if(currentp[i][j-1] == 'X' && currentp[i-1][j] == 'X'){
+            neighbors = cornerBR(i,j) + 5;
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i][j-1] == 'X' || currentp[i-1][j] == 'X'){
+            neighbors = cornerBR(i,j) + 4;
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = cornerBR(i,j) + 3;
+            logic(neighbors, i, j);
+          }
+        }
+        else if(currentp[i][j] == '-'){
+          if(currentp[i][j-1] == 'X' && currentp[i-1][j] == 'X'){
+            neighbors = cornerBR(i,j) + 2;
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i][j-1] == 'X' || currentp[i-1][j] == 'X'){
+            neighbors = cornerBR(i,j) + 1;
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = cornerBR(i,j);
+            logic(neighbors, i, j);
+          }
+        }
+      }
+      else if (i == 0 && j != 0 && j != columns - 1) //sideT
+      {
+        if(currentp[i][j] == 'X'){
+          if(currentp[i][j-1] == 'X' && currentp[i][j+1] == 'X'){
+            neighbors = sideT(i,j) + 3;
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i][j-1] == 'X' || currentp[i][j+1] == 'X'){
+            neighbors = sideT(i,j) + 2;
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = sideT(i,j) + 1;
+            logic(neighbors, i, j);
+          }
+        }
+        else if(currentp[i][j] == '-'){
+          if(currentp[i][j-1] == 'X' && currentp[i][j+1] == 'X'){
+            neighbors = sideT(i,j) + 2;
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i][j-1] == 'X' || currentp[i][j+1] == 'X'){
+            neighbors = sideT(i,j) + 1;
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = sideT(i,j);
+            logic(neighbors, i, j);
+          }
+        }
+      }
+      else if (i == rows - 1 && j != 0 && j != columns - 1 ) //sideB
+      {
+        if(currentp[i][j] == 'X'){
+          if(currentp[i][j-1] == 'X' && currentp[i][j+1] == 'X'){
+            neighbors = sideB(i,j) + 3;
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i][j-1] == 'X' || currentp[i][j+1] == 'X'){
+            neighbors = sideB(i,j) + 2;
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = sideB(i,j) + 1;
+            logic(neighbors, i, j);
+          }
+        }
+        else if(currentp[i][j] == '-'){
+          if(currentp[i][j-1] == 'X' && currentp[i][j+1] == 'X'){
+            neighbors = sideB(i,j) + 2;
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i][j-1] == 'X' || currentp[i][j+1] == 'X'){
+            neighbors = sideB(i,j) + 1;
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = sideB(i,j);
+            logic(neighbors, i, j);
+          }
+        }
+      }
+      else if (j == 0 && i != 0 && i != rows - 1) //sideL
+      {
+        if(currentp[i][j] == 'X'){
+          if(currentp[i+1][j] == 'X' && currentp[i-1][j] == 'X'){
+            neighbors = sideL(i,j) + 3;
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i+1][j] == 'X' || currentp[i-1][j] == 'X'){
+            neighbors = sideL(i,j) + 2;
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = sideL(i,j) + 1;
+            logic(neighbors, i, j);
+          }
+        }
+        else if(currentp[i][j] == '-'){
+          if(currentp[i+1][j] == 'X' && currentp[i-1][j] == 'X'){
+            neighbors = sideL(i,j) + 2;
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i+1][j] == 'X' || currentp[i-1][j] == 'X'){
+            neighbors = sideL(i,j) + 1;
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = sideL(i,j);
+          logic(neighbors, i, j);
+          }
+        }
+      }
+      else if (j == columns - 1 && i != 0 && i != rows - 1)//sideR
+      {
+        if(currentp[i][j] == 'X'){
+          if(currentp[i+1][j] == 'X' && currentp[i-1][j] == 'X'){
+            neighbors = sideR(i,j) + 3;
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i+1][j] == 'X' || currentp[i-1][j] == 'X'){
+            neighbors = sideR(i,j) + 2;
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = sideR(i,j) + 1;
+            logic(neighbors, i, j);
+          }
+        }
+        else if(currentp[i][j] == '-'){
+          if(currentp[i+1][j] == 'X' && currentp[i-1][j] == 'X'){
+            neighbors = sideR(i,j) + 2;
+            logic(neighbors, i, j);
+          }
+          else if(currentp[i+1][j] == 'X' || currentp[i-1][j] == 'X'){
+            neighbors = sideR(i,j) + 1;
+            logic(neighbors, i, j);
+          }
+          else{
+            neighbors = sideR(i,j);
+          logic(neighbors, i, j);
+          }
+        }
+      }
+      else
+      {
+        neighbors = middle(i,j); //the rest that aren't next to the borders
+        logic(neighbors, i, j);
+      }
+  }
+  }
+  for(int i = 0; i < rows; i++)  //these nested for loops input the resulting cels of the next input to the current input
+  {
+    for(int j = 0; j < columns; j++)
+    {
+      currentp[i][j] = nextp[i][j];
+      cout << nextp[i][j];        //the current cells are printed out
+    }
+    cout << endl;
+  }
+  cout << endl;
 }
 
 

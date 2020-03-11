@@ -2,9 +2,13 @@
 
 int main(int argc, char** argv)
 {
+  string fileName = "sample.txt";
   Board* b = new Board();
-  b->randBoard(5,5,.4);
-  b->classic();
+  b->
+  b->randBoard(20,20,.1);
+  for(int i = 0; i < 10; i++){
+    b->Mirror();
+  }
   // int decision;
   // int k;
   // string fileInput;
