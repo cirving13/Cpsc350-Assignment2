@@ -1,14 +1,10 @@
-#include "Game.h"
+#include "Board.h"
 
 int main(int argc, char** argv)
 {
-  Game* g = new Game();
   Board* b = new Board();
-  b->randBoard(5,5,.2);
-  int x = b->getRows();
-  int y = b->getColumns();
-  Board* c = g->nextGen(b,x,y);
-  cout << c->returnBoard();
+  b->randBoard(5,5,.4);
+  b->classic();
   // int decision;
   // int k;
   // string fileInput;
@@ -53,9 +49,7 @@ int main(int argc, char** argv)
   // }
 
   //
-  delete g;
   delete b;
-  delete c;
   // return 0;
 
 }

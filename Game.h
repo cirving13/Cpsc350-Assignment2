@@ -16,10 +16,7 @@ class Game
 
   public:
     Game();
-    Game(int rowInput, int columnInput);
     ~Game();
 
-    Board* nextGen(Board *a,int x,int y);
-    Board* nextGenDon(Board *a,int x,int y);
-    //needs accessors and modifiers
+
   };
