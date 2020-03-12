@@ -5,9 +5,7 @@ int main(int argc, char** argv)
   Game* g = new Game();
   Board* b = new Board();
   b->randBoard(5,5,.6);
-  int x = b->getRows();
-  int y = b->getColumns();
-  Board* c = g->nextGen(b,x,y);
+  Board* c = g->classic(b);
   cout << c->returnBoard();
   // int decision;
   // int k;

@@ -2,34 +2,12 @@
 
 Game::Game()
 {
-  char board[10][10];
-  char tempBoard[10][10];
-}
-Game::Game(int rowInput, int columnInput)
-{
-  char board[rowInput][columnInput];
-  char tempBoard[rowInput][columnInput];
+
 }
 Game::~Game()
 {
   cout << "Closing Game" << endl;
 }
-
-// int Game::getRows(){   // accessors and modifiers for the private variables
-//   return playRows;
-// }
-// void Game::setRows(int row){
-//   playRows = row;
-// }
-// int Game::getColumns(){
-//   return playColumns;
-// }
-// void Game::setColumns(int columns){
-//   playColumns = columns;
-// }
-//
-//
-//
 // void Game::writeConsole()
 // {
 //   //insert live or die method thing(nextGen)
@@ -74,58 +52,288 @@ Game::~Game()
 //       break;
 //   }
 // }
-Board* Game::nextGen(Board *a,int x,int y){ //method to loop through a board and output the new board
-  char** arr = a->boardP;
-  Board *b = new Board();
-  b->createBoard(x,y);
-  for(int i = 0; i < x; ++i ){ //segmentation fault in here at different places depending on board layout
-    for(int j = 0; j < y; ++j){
-      int neighbors = 0;
-      cout << j << endl;
-      if(arr[i+1][j-1] == 'X'){
-        neighbors++;
+void Game::logic(int neighbors, int rows, int columns)
+{
+  if (neighbors < 2)
+    nextp[rows][columns] = '-';
+  if (neighbors == 2)
+    nextp[rows][columns] = '-';
+  if (neighbors == 3)
+    nextp[rows][columns] = currentp[rows][columns];
+  if (neighbors > 3)
+    nextp[rows][columns] = '-';
+}
+Board* Game::classic(Board *a){ //method to loop through a board and output the new board
+  
+  int rows = a->getRows();
+  int columns = a->getColumns();
+  int neighbors;
+
+  for (int i = 0; i < rows; ++i)
+  {
+    for (int j = 0; j < columns; ++j)
+    {
+      if (i == 0 && j == 0)
+      {
+        neighbors = cornerTL(i,j);
+        logic(neighbors, i, j);
       }
-      else if(arr[i+1][j] == 'X'){
-        neighbors++;
+      else if (i == 0 && j == columns - 1)
+      {
+        neighbors = cornerTR(i,j);
+        logic(neighbors, i, j);
       }
-      else if(arr[i+1][j+1] == 'X'){
-        neighbors++;
+      else if (i == rows - 1 && j == 0)
+      {
+        neighbors = cornerBL(i,j);
+        logic(neighbors, i, j);
       }
-      else if(arr[i][j-1] == 'X'){
-        neighbors++;
+      else if (i == rows - 1 && j == columns - 1)
+      {
+        neighbors = cornerBR(i,j);
+        logic(neighbors, i, j);
       }
-      else if(arr[i][j+1] == 'X'){
-        neighbors++;
-        cout << "hi";
+      else if (i == 0 && j != 0 && j != columns - 1)
+      {
+        neighbors = sideT(i,j);
+        logic(neighbors, i, j);
       }
-      else if(arr[i-1][j-1] == 'X'){
-        neighbors++;
-        cout << "hii";
+      else if (i == rows - 1 && j != 0 && j != columns - 1 )
+      {
+        neighbors = sideB(i,j);
+        logic(neighbors, i, j);
       }
-      else if(arr[i-1][j] == 'X'){
-        neighbors++;
-        cout << "hiii";
+      else if (j == 0 && i != 0 && i != rows - 1)
+      {
+        neighbors = sideL(i,j);
+        logic(neighbors, i, j);
       }
-      else if(arr[i-1][j+1] == 'X'){
-        neighbors++;
+      else if (j == columns - 1 && i != 0 && i != rows - 1)
+      {
+        neighbors = sideR(i,j);
+        logic(neighbors, i, j);
       }
-      if(neighbors < 2){
-        b->push('-',i,j);
-      }
-      else if(neighbors == 2){
-        b->push(arr[i][j],i,j);
-      }
-      else if(neighbors == 3){
-        b->push('X',i,j);
-      }
-      else if(neighbors > 3){
-        b->push('-',i,j);
+      else
+      {
+        neighbors = middle(i,j);
+        logic(neighbors, i, j);
       }
     }
   }
-  a = b;
-  delete b;
   return a;
+}
+int Game::cornerTL(int rows, int columns)
+{
+  int neighbors = 0;
+  if(currentp[rows][columns+1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows+1][columns+1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows+1][columns] == 'X')
+  {
+    neighbors++;
+  }
+  return neighbors;
+}
+
+int Game::cornerTR(int rows, int columns)
+{
+  int neighbors = 0;
+  if(currentp[rows+1][columns] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows+1][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  return neighbors;
+}
+
+int Game::cornerBL(int rows, int columns)
+{
+  int neighbors = 0;
+  if(currentp[rows][columns+1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows-1][columns+1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows-1][columns] == 'X')
+  {
+    neighbors++;
+  }
+  return neighbors;
+}
+
+int Game::cornerBR(int rows, int columns)
+{
+  int neighbors = 0;
+  if(currentp[rows-1][columns] == 'X')
+  {
+     neighbors++;
+  }
+  if(currentp[rows-1][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  return neighbors;
+}
+
+int Game::sideT(int rows, int columns)
+{
+  int neighbors = 0;
+  if(currentp[rows][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows][columns+1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows+1][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows+1][columns] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows+1][columns+1] == 'X')
+  {
+    neighbors++;
+  }
+  return neighbors;
+}
+
+int Game::sideR(int rows, int columns)
+{
+  int neighbors = 0;
+  if(currentp[rows-1][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows-1][columns] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows+1][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows+1][columns] == 'X')
+  {
+    neighbors++;
+  }
+  return neighbors;
+}
+
+int Game::sideB(int rows, int columns)
+{
+  int neighbors = 0;
+  if(currentp[rows][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows][columns+1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows-1][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows-1][columns] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows-1][columns+1] == 'X')
+  {
+    neighbors++;
+  }
+  return neighbors;
+}
+
+int Game::sideL(int rows, int columns)
+{
+  int neighbors = 0;
+  if(currentp[rows-1][columns] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows-1][columns+1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows+1][columns+1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows+1][columns] == 'X')
+  {
+    neighbors++;
+  }
+  return neighbors;
+}
+
+int Game::middle(int rows, int columns)
+{
+  int neighbors = 0;
+  if(currentp[rows][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows][columns+1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows-1][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows-1][columns] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows-1][columns+1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows+1][columns-1] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows+1][columns] == 'X')
+  {
+    neighbors++;
+  }
+  if(currentp[rows+1][columns+1] == 'X')
+  {
+    neighbors++;
+  }
+  return neighbors;
 }
 //sample for the donut mode, not ready for testing
 // Board* Game::nextGenDon(Board *a,int x,int y){
