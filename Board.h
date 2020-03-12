@@ -5,6 +5,7 @@
 #include <cmath>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 using namespace std;
 
 class Board
@@ -27,13 +28,13 @@ public:
   void readFile(string fileIn); //reads file and creates board of given specifics
   void randBoard(int r, int c, float val);
   string outRandBoard(int r, int c);
-  int getRows(); //accessors and modifiers for the private variables in the class
-  int getColumns();
-  void setRows(int r);
-  void setColumns(int c);
+  void writeConsoleEnter(int decision);
+  void writeConsole(int decision);
+  bool isEmpty();
 
   void classic();
-  void Mirror();
+  void mirror();
+  void donut();
   int cornerTL(int x,int y);
   int cornerTR(int x,int y);
   int cornerBL(int x,int y);
@@ -44,5 +45,6 @@ public:
   int sideL(int x,int y);
   int middle(int x,int y);
   void logic(int neighbors, int x, int y);
+
 
 };

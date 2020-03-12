@@ -73,6 +73,61 @@ void Board::readFile(string input) //opens and reads a file, finding basic infor
   }
   inFile.close();
 }
+void Board::writeConsole(int decision)
+{
+  int generation = 0;
+  while(true)
+  {
+    cout << "generation number: " << generation << endl;
+    if(decision = 1)
+    {
+      classic();
+    }
+    else if(decision = 2)
+    {
+      mirror();
+    }
+    else
+    {
+      donut();
+    }
+    cout << returnBoard() << endl;
+    ++generation;
+    sleep(1);
+    if(isEmpty())
+    {
+      break;
+    }
+  }
+}
+void Board::writeConsoleEnter(int decision)
+{
+  int generation = 0;
+  while(true)
+  {
+    cout << "generation number: " << generation << endl;
+    if(decision = 1)
+    {
+      classic();
+    }
+    else if(decision = 2)
+    {
+      mirror();
+    }
+    else
+    {
+      donut();
+    }
+    cout << returnBoard() << endl;
+    ++generation;
+    cout << "press enter to loop again" << endl;
+    cin.ignore();
+    if(isEmpty())
+    {
+      break;
+    }
+  }
+}
 void Board::randBoard(int r, int c, float val) //creates random board
 {
   rows = r;
@@ -92,23 +147,9 @@ void Board::randBoard(int r, int c, float val) //creates random board
     int v2 = rand() % c;
     currentp[v1][v2] = 'X';
   }
-  cout << returnBoard();
-  cout << endl;
+  cout << returnBoard() << endl;
 }
-int Board::getColumns(){
-  return columns;
-}
-int Board::getRows(){   // accessors and modifiers for the private variables
-  return rows;
-}
-void Board::setRows(int r)
-{
-  rows = r;
-}
-void Board::setColumns(int c)
-{
-  columns = c;
-}
+
 void Board::logic(int neighbors, int rows, int columns) //method that determines life or death
 {
   if (neighbors < 2)
@@ -120,6 +161,7 @@ void Board::logic(int neighbors, int rows, int columns) //method that determines
   else if (neighbors > 3)
     nextp[rows][columns] = '-';
 }
+
 void Board::classic(){ //method to loop through a board and output the new board
   int neighbors;
 
@@ -174,46 +216,241 @@ void Board::classic(){ //method to loop through a board and output the new board
       }
     }
   }
+  if(isStable())
+  {
+    cout << "system is stable" << endl;
+    exit(1);
+  }
   for(int i = 0; i < rows; i++)  //these nested for loops input the resulting cels of the next input to the current input
   {
     for(int j = 0; j < columns; j++)
     {
       currentp[i][j] = nextp[i][j];
-      cout << nextp[i][j];        //the current cells are printed out
     }
     cout << endl;
   }
   cout << endl;
 }
-
+bool Board::isEmpty()
+{
+  bool x = true;
+  for(int i = 0; i < rows; i++)
+  {
+    for(int j = 0; j < columns; j++)
+    {
+      if(currentp[i][j] == 'X')
+      {
+        x = false;
+      }
+    }
+  }
+  return x;
+}
 bool Board::isStable(){ //checks if program is stable
   int cellequalCount = 0;
   for(int i = 0; i < rows; i++){
-    for(int j = 0; j < columns; ++j){
-      if(currentp[i][j] == nextp[i][j]){
-        cellequalCount++;
+    for(int j = 0; j < columns; j++){
+      if(currentp[i][j] != nextp[i][j]){
+        return false;
       }
     }
   }
-  if(cellequalCount == (rows * columns)){
-    if(equalCount > 5){
-      for(int i = 0; i < rows; ++i){
-        for(int j = 0; j < columns; ++j){
-          cout << nextp[i][j];
-        }
-        cout << endl;
-      }
-      cout << endl;
-      cout << "the program is stable" << endl;
+  return true;
+}
 
-      return true;
-    }
-    else{
-      equalCount++;
+void Board::donut(){ //donut class
+  for (int i = 0; i < rows; i++)
+  {
+    for (int j = 0; j < columns; j++)
+    {
+      int neighbors = 0;
+      if (i == 0 && j == 0)
+      {
+        if (currentp[0][columns-1] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[rows-1][0] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[rows-1][columns-1] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[1][columns-1] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[rows-1][1] == 'X')
+        {
+          neighbors++;
+        }
+        neighbors += cornerTL(i,j);
+        logic(neighbors, i, j);
+      }
+      else if (i == 0 && j == (columns - 1))
+      {
+        if (currentp[0][0] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[rows-1][columns-1] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[rows-1][0] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[1][0] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[rows-1][columns-2] == 'X')
+        {
+          neighbors++;
+        }
+        neighbors += cornerTR(i,j);
+        logic(neighbors, i, j);
+      }
+      else if (i == rows - 1 && j == 0)
+      {
+        if (currentp[0][0] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[0][1] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[rows-1][columns-1] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[0][columns-1] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[rows-2][columns-1] == 'X')
+        {
+          neighbors++;
+        }
+        neighbors += cornerBL(i,j);
+        logic(neighbors, i, j);
+      }
+      else if (i == rows - 1 && j == columns - 1)
+      {
+        if (currentp[0][0] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[0][columns-1] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[0][columns-2] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[rows-1][0] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[rows-2][0] == 'X')
+        {
+          neighbors++;
+        }
+        neighbors += cornerBR(i,j);
+        logic(neighbors, i, j);
+      }
+      else if (i == 0 && j != 0 && j != columns - 1)
+      {
+        if (currentp[rows-1][j] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[rows-1][j+1] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[rows-1][j-1] == 'X')
+        {
+          neighbors++;
+        }
+        neighbors += sideT(i,j);
+        logic(neighbors, i, j);
+      }
+      else if (i == rows - 1 && j != 0 && j != columns - 1 )
+      {
+        if (currentp[0][j] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[0][j+1] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[0][j-1] == 'X')
+        {
+          neighbors++;
+        }
+        neighbors += sideB(i,j);
+        logic(neighbors, i, j);
+      }
+      else if (j == 0 && i != 0 && i != rows - 1)
+      {
+        if (currentp[i-1][columns-1] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[i][columns-1] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[i+1][columns-1] == 'X')
+        {
+          neighbors++;
+        }
+        neighbors += sideL(i,j);
+        logic(neighbors, i, j);
+      }
+      else if (j == columns - 1 && i != 0 && i != rows - 1)
+      {
+        if (currentp[i-1][0] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[i][0] == 'X')
+        {
+          neighbors++;
+        }
+        if (currentp[i+1][0] == 'X')
+        {
+          neighbors++;
+        }
+        neighbors += sideR(i,j);
+        logic(neighbors, i, j);
+      }
+      else
+      {
+        neighbors = middle(i,j);
+        logic(neighbors, i, j);
+      }
     }
   }
-  else{
-    equalCount++
+  if(isStable())
+  {
+    cout << "system is stable" << endl;
+    exit(1);
+  }
+  for(int i = 0; i < rows; i++)
+  {
+    for(int j = 0; j < columns; j++)
+    {
+      currentp[i][j] = nextp[i][j];
+    }
+    cout << endl;
   }
 }
 int Board::cornerTL(int rows, int columns)
@@ -429,7 +666,7 @@ int Board::middle(int rows, int columns)
   return neighbors;
 }
 
-void Board::Mirror(){
+void Board::mirror(){
   int neighbors;
 
   for (int i = 0; i < rows; i++)
@@ -649,7 +886,7 @@ void Board::Mirror(){
           }
           else{
             neighbors = sideL(i,j);
-          logic(neighbors, i, j);
+            logic(neighbors, i, j);
           }
         }
       }
@@ -680,7 +917,7 @@ void Board::Mirror(){
           }
           else{
             neighbors = sideR(i,j);
-          logic(neighbors, i, j);
+            logic(neighbors, i, j);
           }
         }
       }
@@ -689,102 +926,20 @@ void Board::Mirror(){
         neighbors = middle(i,j); //the rest that aren't next to the borders
         logic(neighbors, i, j);
       }
+    }
   }
+  if(isStable())
+  {
+    cout << "system is stable" << endl;
+    exit(1);
   }
   for(int i = 0; i < rows; i++)  //these nested for loops input the resulting cels of the next input to the current input
   {
     for(int j = 0; j < columns; j++)
     {
       currentp[i][j] = nextp[i][j];
-      cout << nextp[i][j];        //the current cells are printed out
     }
     cout << endl;
   }
   cout << endl;
 }
-
-
-
-// void ClassicMode::NewGen()
-// {
-//   for(int i = 0; i < numRows; ++i)
-//   {
-//     for(int j = 0; j < numColumns; ++j)
-//     {
-//       previousMap[i][j] = currentMap[i][j];
-//     }
-//   }
-//
-//   int numAround;
-//
-//   for(int i = 0; i < numRows; ++i)
-//   {
-//     for(int j = 0; j < numColumns; ++j){
-//       numAround = 0;
-//       if(previousMap[i][j] == 'X'){
-//         if(i == 0){
-//           if(j == 0){
-//             numAround = CheckCornerTL(i, j);
-//           }
-//           else if(j == (numColumns - 1)){
-//             numAround = CheckCornerTR(i, j);
-//           }
-//           else
-//           {
-//             numAround = CheckSideT(i, j);
-//           }
-//         }
-//         else if(i == (numRows - 1))
-//         {
-//           if(j == 0)
-//           {
-//             numAround = CheckCornerBL(i, j);
-//           }
-//           else if(j == (numColumns - 1))
-//           {
-//             numAround = CheckCornerBR(i, j);
-//           }
-//           else
-//           {
-//             numAround = CheckSideB(i, j);
-//           }
-//         }
-//         else if(j == 0)
-//         {
-//           if(i != 0 && i != (numRows -1))
-//           {
-//             numAround = CheckSideL(i, j);
-//           }
-//         }
-//         else if(j == (numColumns - 1))
-//         {
-//           if(i != 0 && i != (numRows -1))
-//           {
-//             numAround = CheckSideR(i, j);
-//           }
-//         }
-//         else
-//         {
-//           numAround = CheckMiddle(i, j);
-//         }
-//
-//         if(numAround <= 1)
-//         {
-//           currentMap[i][j] = '-';
-//         }
-//         else if(numAround < 3)
-//         {
-//
-//         }
-//         else if(numAround < 4)
-//         {
-//           currentMap[i][j] = 'X';
-//         }
-//         else
-//         {
-//           currentMap[i][j] = '-';
-//         }
-//       }
-//     }
-//   }
-// }

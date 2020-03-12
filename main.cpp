@@ -3,13 +3,9 @@
 int main(int argc, char** argv)
 {
   Board* b = new Board();
-  b->randBoard(10,10,0.4);
-  while(b->isStable() != true){
-    b->classic();
-  }
 
-
-  // Board* b = new Board();
+  b->readFile("sample.txt");
+  b->writeConsole(1);
   // int decision;
   // int k;
   // string fileInput;
