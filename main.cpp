@@ -2,10 +2,11 @@
 
 int main(int argc, char** argv)
 {
+  string fileName = "sample.txt";
   Board* b = new Board();
-  // b->randBoard(5,5,.4);
+
   b->readFile("sample.txt");
-  b->donut();
+  b->writeConsole(1);
   // int decision;
   // int k;
   // string fileInput;

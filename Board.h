@@ -5,6 +5,7 @@
 #include <cmath>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 using namespace std;
 
 class Board
@@ -12,6 +13,7 @@ class Board
 private:
   int rows;
   int columns;
+  int equalCount = 0;
 
 public:
   Board();
@@ -22,9 +24,13 @@ public:
 
   void createBoard(int rows, int column);
   string returnBoard();
+  bool isStable();
   void readFile(string fileIn); //reads file and creates board of given specifics
   void randBoard(int r, int c, float val);
   string outRandBoard(int r, int c);
+  void writeConsoleEnter(int decision);
+  void writeConsole(int decision);
+  bool isEmpty();
 
   void classic();
   void mirror();
