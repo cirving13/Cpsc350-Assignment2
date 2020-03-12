@@ -94,7 +94,7 @@ void Board::writeConsole(int decision)
     cout << returnBoard() << endl;
     ++generation;
     sleep(1);
-    if(isStable() || isEmpty())
+    if(isEmpty())
     {
       break;
     }
@@ -122,7 +122,7 @@ void Board::writeConsoleEnter(int decision)
     ++generation;
     cout << "press enter to loop again" << endl;
     cin.ignore();
-    if(isStable() || isEmpty())
+    if(isEmpty())
     {
       break;
     }
@@ -216,6 +216,11 @@ void Board::classic(){ //method to loop through a board and output the new board
       }
     }
   }
+  if(isStable())
+  {
+    cout << "system is stable" << endl;
+    exit(1);
+  }
   for(int i = 0; i < rows; i++)  //these nested for loops input the resulting cels of the next input to the current input
   {
     for(int j = 0; j < columns; j++)
@@ -245,28 +250,12 @@ bool Board::isStable(){ //checks if program is stable
   int cellequalCount = 0;
   for(int i = 0; i < rows; i++){
     for(int j = 0; j < columns; j++){
-      if(currentp[i][j] == nextp[i][j]){
-        cellequalCount++;
+      if(currentp[i][j] != nextp[i][j]){
+        return false;
       }
     }
   }
-  if(cellequalCount = (rows * columns)){
-    if(equalCount > 4){
-      for(int i = 0; i < rows; i++){
-        for(int j = 0; j < columns; j++){
-          cout << nextp[i][j];
-        }
-        cout << endl;
-      }
-      cout << endl;
-      cout << "the program is stable" << endl;
-
-      return true;
-    }
-    else{
-      equalCount++;
-    }
-  }
+  return true;
 }
 
 void Board::donut(){ //donut class
@@ -449,6 +438,11 @@ void Board::donut(){ //donut class
         logic(neighbors, i, j);
       }
     }
+  }
+  if(isStable())
+  {
+    cout << "system is stable" << endl;
+    exit(1);
   }
   for(int i = 0; i < rows; i++)
   {
@@ -933,6 +927,11 @@ void Board::mirror(){
         logic(neighbors, i, j);
       }
     }
+  }
+  if(isStable())
+  {
+    cout << "system is stable" << endl;
+    exit(1);
   }
   for(int i = 0; i < rows; i++)  //these nested for loops input the resulting cels of the next input to the current input
   {
