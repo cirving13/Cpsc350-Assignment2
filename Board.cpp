@@ -13,20 +13,14 @@ Board::~Board()
 void Board::createBoard(int rows, int columns) //creates board
 {
   currentp = new char*[rows];
-  for(int i = 0; i < rows; ++i)
-  {
-    currentp[i] = new char[columns];
-    for(int j = 0; j < columns; ++j)
-    {
-      currentp[i][j]='-';
-    }
-  }
   nextp = new char*[rows];
   for(int i = 0; i < rows; ++i)
   {
+    currentp[i] = new char[columns];
     nextp[i] = new char[columns];
     for(int j = 0; j < columns; ++j)
     {
+      currentp[i][j]='-';
       nextp[i][j]='-';
     }
   }
@@ -37,19 +31,6 @@ string Board::returnBoard() //outputs board
   for(int i = 0;i < rows;i++)
   {
     for(int j = 0;j < columns;j++)
-    {
-      output = output + currentp[i][j];
-    }
-    output+="\n";
-  }
-  return output;
-}
-string Board::outRandBoard(int r, int c) //outputs rand board, ignore
-{
-  string output;
-  for(int i = 0;i < r;i++)
-  {
-    for(int j = 0;j < c;j++)
     {
       output = output + currentp[i][j];
     }
@@ -94,58 +75,56 @@ void Board::readFile(string input) //opens and reads a file, finding basic infor
 }
 void Board::randBoard(int r, int c, float val) //creates random board
 {
-  setColumns(c);
-  setRows(r);
-  createBoard(r,c);
-  for(int i = 0; i < r; ++i)
+  rows = r;
+  columns = c;
+  createBoard(rows,columns);
+  for(int i = 0; i < r; i++)
   {
-    for(int j = 0; j < c; ++j)
+    for(int j = 0; j < c; j++)
     {
       currentp[i][j] = '-';
     }
   }
   int randNum = c*r*val;
-  for(int i = 0; i < randNum; ++i)
+  for(int i = 0; i < randNum; i++)
   {
     int v1 = rand() % r;
     int v2 = rand() % c;
     currentp[v1][v2] = 'X';
   }
-  cout << outRandBoard(r,c);
+  cout << returnBoard();
 }
-int Board::getColumns(){
-  return columns;
-}
-int Board::getRows(){   // accessors and modifiers for the private variables
-  return rows;
-}
-void Board::setRows(int r)
-{
-  rows = r;
-}
-void Board::setColumns(int c)
-{
-  columns = c;
-}
+// int Board::getColumns(){
+//   return columns;
+// }
+// int Board::getRows(){   // accessors and modifiers for the private variables
+//   return rows;
+// }
+// void Board::setRows(int r)
+// {
+//   rows = r;
+// }
+// void Board::setColumns(int c)
+// {
+//   columns = c;
+// }
 void Board::logic(int neighbors, int rows, int columns)
 {
   if (neighbors < 2)
     nextp[rows][columns] = '-';
   else if (neighbors == 2)
-    nextp[rows][columns] = '-';
-  else if (neighbors == 3)
     nextp[rows][columns] = currentp[rows][columns];
+  else if (neighbors == 3)
+    nextp[rows][columns] = 'X';
   else if (neighbors > 3)
     nextp[rows][columns] = '-';
 }
-Board* Board::classic(Board *a){ //method to loop through a board and output the new board
-  int rows = a->getRows();
-  int columns = a->getColumns();
+void Board::classic(){ //method to loop through a board and output the new board
   int neighbors;
 
-  for (int i = 0; i < rows; ++i)
+  for (int i = 0; i < rows; i++)
   {
-    for (int j = 0; j < columns; ++j)
+    for (int j = 0; j < columns; j++)
     {
       if (i == 0 && j == 0)
       {
@@ -194,14 +173,15 @@ Board* Board::classic(Board *a){ //method to loop through a board and output the
       }
     }
   }
-  for(int i = 0; i < rows; ++i)
+  for(int i = 0; i < rows; i++)
   {
-    for(int j = 0; j < columns; ++j)
+    for(int j = 0; j < columns; j++)
     {
       currentp[i][j] = nextp[i][j];
+      cout << nextp[i][j];
     }
+    cout << endl;
   }
-  return a;
 }
 int Board::cornerTL(int rows, int columns)
 {

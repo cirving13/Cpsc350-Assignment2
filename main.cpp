@@ -3,9 +3,8 @@
 int main(int argc, char** argv)
 {
   Board* b = new Board();
-  b->randBoard(5,5,.1);
-  Board* c = b->classic(b);
-  cout << c->returnBoard();
+  b->randBoard(5,5,.4);
+  b->classic();
   // int decision;
   // int k;
   // string fileInput;
@@ -51,7 +50,6 @@ int main(int argc, char** argv)
 
   //
   delete b;
-  delete c;
   // return 0;
 
 }
