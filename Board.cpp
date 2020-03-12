@@ -138,151 +138,71 @@ void Board::logic(int neighbors, int rows, int columns)
   else if (neighbors > 3)
     nextp[rows][columns] = '-';
 }
-Board* Board::classic(Board*a)
-{
+Board* Board::classic(Board *a){ //method to loop through a board and output the new board
   int rows = a->getRows();
-  cout <<rows<<endl;
-  cout <<columns<<endl;
   int columns = a->getColumns();
   int neighbors;
-  for(int i = 0; i < rows; ++i)
+
+  for (int i = 0; i < rows; ++i)
   {
     for (int j = 0; j < columns; ++j)
     {
-      if(i == 0){
-        if(j == 0){
-          neighbors = cornerTL(i, j);
-        }
-        else if(j == (columns - 1)){
-          neighbors = cornerTR(i, j);
-        }
-        else
-        {
-          neighbors = sideT(i, j);
-        }
-      }
-      else if(i == (rows - 1))
+      if (i == 0 && j == 0)
       {
-        if(j == 0)
-        {
-          neighbors = cornerBL(i, j);
-        }
-        else if(j == (columns - 1))
-        {
-          neighbors = cornerBR(i, j);
-        }
-        else
-        {
-          neighbors = sideB(i, j);
-        }
+        neighbors = cornerTL(i,j);
+        logic(neighbors, i, j);
       }
-      else if(j == 0)
+      else if (i == 0 && j == columns - 1)
       {
-        if(i != 0 && i != (rows -1))
-        {
-          neighbors = sideL(i, j);
-        }
+        neighbors = cornerTR(i,j);
+        logic(neighbors, i, j);
       }
-      else if(j == (columns - 1))
+      else if (i == rows - 1 && j == 0)
       {
-        if(i != 0 && i != (rows -1))
-        {
-          neighbors = sideR(i, j);
-        }
+        neighbors = cornerBL(i,j);
+        logic(neighbors, i, j);
       }
-      else
+      else if (i == rows - 1 && j == columns - 1)
       {
-        neighbors = middle(i, j);
+        neighbors = cornerBR(i,j);
+        logic(neighbors, i, j);
       }
-
-      if(neighbors <= 1)
+      else if (i == 0 && j != 0 && j != columns - 1)
       {
-        nextp[i][j] = '-';
-        cout << "you should kill yourself" << endl;
+        neighbors = sideT(i,j);
+        logic(neighbors, i, j);
       }
-      else if(neighbors < 3)
+      else if (i == rows - 1 && j != 0 && j != columns - 1 )
       {
-        cout << "its worth it" << endl;
+        neighbors = sideB(i,j);
+        logic(neighbors, i, j);
       }
-      else if(neighbors < 4)
+      else if (j == 0 && i != 0 && i != rows - 1)
       {
-        nextp[i][j] = 'X';
-        cout << "i primise" << endl;
+        neighbors = sideL(i,j);
+        logic(neighbors, i, j);
+      }
+      else if (j == columns - 1 && i != 0 && i != rows - 1)
+      {
+        neighbors = sideR(i,j);
+        logic(neighbors, i, j);
       }
       else
       {
-        nextp[i][j] = '-';
-        cout << "it only hurts a little" << endl;
+        neighbors = middle(i,j);
+        logic(neighbors, i, j);
       }
     }
   }
+  for(int i = 0; i < rows; ++i)
+  {
+    for(int j = 0; j < columns; ++j)
+    {
+      currentp[i][j] = nextp[i][j];
+    }
+  }
+  return a;
 }
-
-// Board* Board::classic(Board *a){ //method to loop through a board and output the new board
-//   int rows = a->getRows();
-//   int columns = a->getColumns();
-//   int neighbors;
-//
-//   for (int i = 0; i < rows; ++i)
-//   {
-//     for (int j = 0; j < columns; ++j)
-//     {
-//       if (i == 0 && j == 0)
-//       {
-//         neighbors = cornerTL(i,j);
-//         logic(neighbors, i, j);
-//       }
-//       else if (i == 0 && j == columns - 1)
-//       {
-//         neighbors = cornerTR(i,j);
-//         logic(neighbors, i, j);
-//       }
-//       else if (i == rows - 1 && j == 0)
-//       {
-//         neighbors = cornerBL(i,j);
-//         logic(neighbors, i, j);
-//       }
-//       else if (i == rows - 1 && j == columns - 1)
-//       {
-//         neighbors = cornerBR(i,j);
-//         logic(neighbors, i, j);
-//       }
-//       else if (i == 0 && j != 0 && j != columns - 1)
-//       {
-//         neighbors = sideT(i,j);
-//         logic(neighbors, i, j);
-//       }
-//       else if (i == rows - 1 && j != 0 && j != columns - 1 )
-//       {
-//         neighbors = sideB(i,j);
-//         logic(neighbors, i, j);
-//       }
-//       else if (j == 0 && i != 0 && i != rows - 1)
-//       {
-//         neighbors = sideL(i,j);
-//         logic(neighbors, i, j);
-//       }
-//       else if (j == columns - 1 && i != 0 && i != rows - 1)
-//       {
-//         neighbors = sideR(i,j);
-//         logic(neighbors, i, j);
-//       }
-//       else
-//       {
-//         neighbors = middle(i,j);
-//         logic(neighbors, i, j);
-//       }
-//     }
-//   }
-//   for(int i = 0; i < rows; ++i)
-//   {
-//     for(int j = 0; j < columns; ++j)
-//     {
-//       currentp[i][j] = nextp[i][j];
-//     }
-//   }
-//   return a;
-// }
 int Board::cornerTL(int rows, int columns)
 {
   int neighbors = 0;
