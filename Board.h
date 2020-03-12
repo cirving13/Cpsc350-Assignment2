@@ -30,6 +30,7 @@ public:
   string outRandBoard(int r, int c);
   void writeConsoleEnter(int decision);
   void writeConsole(int decision);
+  void writeFile(string input, int decision);
   bool isEmpty();
 
   void classic();

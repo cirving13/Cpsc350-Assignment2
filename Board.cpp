@@ -126,7 +126,46 @@ void Board::writeConsoleEnter(int decision)
     {
       break;
     }
+    if(generation > 40)
+    {
+      cout << "stable enough" << endl;
+      break;
+    }
   }
+}
+void Board::writeFile(string input, int decision)
+{
+  ofstream outFile;
+  outFile.open(input, ios::app);
+  int generation = 0;
+  while(true)
+  {
+    outFile << "generation number: " << generation << endl;
+    if(decision = 1)
+    {
+      classic();
+    }
+    else if(decision = 2)
+    {
+      mirror();
+    }
+    else
+    {
+      donut();
+    }
+    outFile << returnBoard() << endl;
+    ++generation;
+    if(isEmpty())
+    {
+      break;
+    }
+    if(generation > 40)
+    {
+      outFile << "stable enough" << endl;
+      break;
+    }
+  }
+outFile.close();
 }
 void Board::randBoard(int r, int c, float val) //creates random board
 {
