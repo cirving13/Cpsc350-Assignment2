@@ -1,11 +1,10 @@
-#include "Game.h"
+#include "Board.h"
 
 int main(int argc, char** argv)
 {
-  Game* g = new Game();
   Board* b = new Board();
-  b->randBoard(5,5,.6);
-  Board* c = g->classic(b);
+  b->randBoard(5,5,.1);
+  Board* c = b->classic(b);
   cout << c->returnBoard();
   // int decision;
   // int k;
@@ -51,7 +50,6 @@ int main(int argc, char** argv)
   // }
 
   //
-  delete g;
   delete b;
   delete c;
   // return 0;
