@@ -30,4 +30,5 @@ and the other methods needed for the game. for each mode, to avoid segmentation 
 on where on the board it exists. for example, if the game is in classic mode, and a cell that's being read through the for loop is a corner cell, it doesn't try to read cells
 that are out of their bounds but detects only the cells around it depending on which corner it exists in. same thing is done for cells that are right by the barriers
 and cells that are in the middle. Other modes detect cells that are around it, and depending on where they are, adds an additional number of neighbors due to reflection
-or folding. The process of the game and the results can be seen by the user on the console or in a file if the user decides to output to it.
+or folding. The process of the game and the results can be seen by the user on the console or in a file if the user decides to output to it. If the current generation and the next generation
+are the same, the game halts. If it falls into an infinite loop, it keeps on going.
