@@ -1,16 +1,26 @@
+// # Cpsc350-Assignment2
+// Cameron Irving
+// 2326756
+// cirving@chapman.edu
+// Kenneth Cho
+// 2325383
+// kecho@chapman.edu
+// cpsc350-1
+// This is a cpp file for the board class
+
 #include "Board.h"
 
-Board::Board()
+Board::Board() //default constructor
 {
 
 }
-Board::~Board()
+Board::~Board() //destructor
 {
   delete nextp;
   delete currentp;
 }
 
-void Board::setRows(int h)
+void Board::setRows(int h)  //getters and setters for rows and columns
 {
     rows = h;
 }
@@ -62,7 +72,7 @@ string Board::returnBoard() //outputs board
   }
   return output;
 }
-void Board::WriteArt(string input){
+void Board::WriteArt(string input){ //outputs ASCII art to the console
   ifstream inFile;
   string line;
   inFile.open(input);
@@ -86,7 +96,7 @@ void Board::readFile(string input) //opens and reads a file, finding basic infor
   createBoard(rows,columns);
   if (!inFile)
   {
-    cout << "Unable to open file " + input << endl;
+    cout << "Unable to open file " + input << endl; //if unable to open the file, it exits
     exit(1);
   }
   int i = 0;
@@ -108,7 +118,7 @@ void Board::readFile(string input) //opens and reads a file, finding basic infor
   }
   inFile.close();
 }
-void Board::writeConsole(int decision)
+void Board::writeConsole(int decision)  //writes to console with pauses
 {
   int generation = 0;
   while(true)
@@ -135,7 +145,7 @@ void Board::writeConsole(int decision)
     }
   }
 }
-void Board::writeConsoleEnter(int decision)
+void Board::writeConsoleEnter(int decision)  //writes to console only if enter is pressed
 {
   int generation = 0;
   while(true)
@@ -168,7 +178,7 @@ void Board::writeConsoleEnter(int decision)
     }
   }
 }
-void Board::writeFile(string input, int decision)
+void Board::writeFile(string input, int decision)  //writes to an output file
 {
   ofstream outFile;
   outFile.open(input, ios::app);
@@ -533,7 +543,7 @@ void Board::donut(){ //donut class
     cout << endl;
   }
 }
-int Board::cornerTL(int rows, int columns)
+int Board::cornerTL(int rows, int columns)   //counts neighbors for top left cell
 {
   int neighbors = 0;
   if(currentp[rows][columns+1] == 'X')
@@ -551,7 +561,7 @@ int Board::cornerTL(int rows, int columns)
   return neighbors;
 }
 
-int Board::cornerTR(int rows, int columns)
+int Board::cornerTR(int rows, int columns)   //counts neighbors for top right cell
 {
   int neighbors = 0;
   if(currentp[rows+1][columns] == 'X')
@@ -569,7 +579,7 @@ int Board::cornerTR(int rows, int columns)
   return neighbors;
 }
 
-int Board::cornerBL(int rows, int columns)
+int Board::cornerBL(int rows, int columns)   //counts neighbors for bottom left cell
 {
   int neighbors = 0;
   if(currentp[rows][columns+1] == 'X')
@@ -587,7 +597,7 @@ int Board::cornerBL(int rows, int columns)
   return neighbors;
 }
 
-int Board::cornerBR(int rows, int columns)
+int Board::cornerBR(int rows, int columns)   //counts neighbors for bottom right cell
 {
   int neighbors = 0;
   if(currentp[rows-1][columns] == 'X')
@@ -605,7 +615,7 @@ int Board::cornerBR(int rows, int columns)
   return neighbors;
 }
 
-int Board::sideT(int rows, int columns)
+int Board::sideT(int rows, int columns)   //counts neighbors for side top row cells
 {
   int neighbors = 0;
   if(currentp[rows][columns-1] == 'X')
@@ -631,7 +641,7 @@ int Board::sideT(int rows, int columns)
   return neighbors;
 }
 
-int Board::sideR(int rows, int columns)
+int Board::sideR(int rows, int columns)   //counts neighbors for side right column cells
 {
   int neighbors = 0;
   if(currentp[rows-1][columns-1] == 'X')
@@ -657,7 +667,7 @@ int Board::sideR(int rows, int columns)
   return neighbors;
 }
 
-int Board::sideB(int rows, int columns)
+int Board::sideB(int rows, int columns)   //counts neighbors for side bottom row cells
 {
   int neighbors = 0;
   if(currentp[rows][columns-1] == 'X')
@@ -682,7 +692,7 @@ int Board::sideB(int rows, int columns)
   }
   return neighbors;
 }
-int Board::sideL(int rows, int columns)
+int Board::sideL(int rows, int columns)   //counts neighbors for side left column cells
 {
   int neighbors = 0;
   if(currentp[rows-1][columns] == 'X')
@@ -708,7 +718,7 @@ int Board::sideL(int rows, int columns)
   return neighbors;
 }
 
-int Board::middle(int rows, int columns)
+int Board::middle(int rows, int columns)   //counts neighbors for the middle cells
 {
   int neighbors = 0;
   if(currentp[rows][columns-1] == 'X')
@@ -746,7 +756,7 @@ int Board::middle(int rows, int columns)
   return neighbors;
 }
 
-void Board::mirror(){
+void Board::mirror(){  //mirror mode implementation
   int neighbors;
 
   for (int i = 0; i < rows; i++)
