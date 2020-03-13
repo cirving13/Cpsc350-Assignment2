@@ -30,7 +30,13 @@ public:
   string outRandBoard(int r, int c);
   void writeConsoleEnter(int decision);
   void writeConsole(int decision);
+  void writeFile(string input, int decision);
+  void setRows(int h);
+  void setColumns(int m);
+  int getRows();
+  int getColumns();
   bool isEmpty();
+  void WriteArt(string input);
 
   void classic();
   void mirror();
