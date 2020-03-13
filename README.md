@@ -19,6 +19,8 @@ art.txt
 
 references
 
+Gary and Max from the tutoring center  
+
 basic idea
 https://codereview.stackexchange.com/questions/47167/conways-game-of-life-in-c
 sleep function
